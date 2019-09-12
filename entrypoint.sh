@@ -9,7 +9,7 @@ set -e
 
 # Capture output
 output=$(
-sentry-cli releases new $RELEASE_VERSION
+sentry-cli releases new -p $SENTRY_PROJECT $RELEASE_VERSION
 sentry-cli releases set-commits --auto $RELEASE_VERSION
 sentry-cli releases deploys $RELEASE_VERSION new -e $ENVIRONMENT
 )

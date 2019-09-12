@@ -20,12 +20,12 @@ jobs:
     steps:
       - name: Create release on Sentry
         uses: "xGouley/sentry-release@master"
-        secrets: ["SENTRY_AUTH_TOKEN"]
         env:
-          - SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          - SENTRY_PROJECT: ${{ github.ref ??? }}
-          - ENVIRONMENT: "development"
-          - SHA: ${{ github.sha }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: "foo"
+          SENTRY_PROJECT: "bar"
+          ENVIRONMENT: "development"
+          TAG: ${{ github.ref }}
 ```
 
 ### Secrets
@@ -36,7 +36,7 @@ jobs:
 
 ### Environment variables
 - `ENVIRONMENT`- **Required**. The environement to give to Sentry.
-- `SHA` - **Required**. The commit for this tag. Please keep ${{ github.sha }}.
+- `TAG` - **Optional**. The ref of the tag when the action is used from a release tag. Please keep ${{ github.ref }}, else remove it.
 - `RELEASE_VERSION` - **Optional**. Custom version tag. Defaults to `${SENTRY_PROJECT}@$(git describe --always --long)`.
 
 ## Attribution

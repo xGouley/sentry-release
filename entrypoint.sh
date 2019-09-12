@@ -3,7 +3,9 @@
 set -e
 
 # Respect RELEASE_VERSION if specified
-[ -n "$RELEASE_VERSION" ] || export RELEASE_VERSION="${SENTRY_PROJECT}@$(git describe --always --long)"
+[ -n "$RELEASE_VERSION" ] || [ -n "$TAG" ] || export RELEASE_VERSION="${SENTRY_PROJECT}@$(git describe --always --long)"
+# IF TAG is given, use this last part (after last '-') as version
+[ -n "$RELEASE_VERSION" ] || export RELEASE_VERSION="${SENTRY_PROJECT}@$(echo $TAG | sed -e 's/^.*-//')"
 
 # Capture output
 output=$(

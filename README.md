@@ -22,10 +22,9 @@ jobs:
         uses: "xGouley/sentry-release@master"
         secrets: ["SENTRY_AUTH_TOKEN"]
         env:
-          - SENTRY_ORG: "foo"
-          - SENTRY_PROJECT: "bar"
+          - SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          - SENTRY_PROJECT: ${{ github.ref ??? }}
           - ENVIRONMENT: "development"
-          - TAG: ${{ github.ref }}
           - SHA: ${{ github.sha }}
 ```
 
@@ -36,12 +35,13 @@ jobs:
 - `SENTRY_PROJECT` - **Required**. The slug of the project to use for a command.
 
 ### Environment variables
-
+- `ENVIRONMENT`- **Required**. The environement to give to Sentry.
+- `SHA` - **Required**. The commit for this tag. Please keep ${{ github.sha }}.
 - `RELEASE_VERSION` - **Optional**. Custom version tag. Defaults to `${SENTRY_PROJECT}@$(git describe --always --long)`.
 
 ## Attribution
 
-Heavily inspired by [Juan Jose Karam Action](https://github.com/juankaram/sentry-release).
+Forked and adapted from [Juan Jose Karam Action](https://github.com/juankaram/sentry-release).
 
 ## License
 
